@@ -2,7 +2,7 @@ from app.domain.interfaces import ApplicationRepository
 from app.domain.entities import LoanApplication
 from .models import ApplicationModel
 from .database import async_session
-from sqlalchemy.future import select
+from sqlalchemy import select
 
 class PostgresRepository(ApplicationRepository):
     async def save(self, app: LoanApplication, status: str):

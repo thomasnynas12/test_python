@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+aiokafka
+sqlalchemy
+asyncpg
+redis[asyncio]
+dataclasses
+pydantic

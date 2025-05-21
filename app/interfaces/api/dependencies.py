@@ -1,26 +1,12 @@
-from typing import AsyncGenerator
-from aiokafka import AIOKafkaProducer
+from fastapi import Depends
 from app.infrastructure.db.repository import PostgresRepository
 from app.infrastructure.redis.cache import RedisCache
-from app.usecases.application_service import ApplicationService
+from app.infrastructure.kafka.producer import get_kafka_producer
 
-KAFKA_BOOTSTRAP_SERVERS = "localhost:9092"
-
-async def get_kafka_producer() -> AsyncGenerator[AIOKafkaProducer, None]:
-    producer = AIOKafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS)
-    await producer.start()
-    try:
-        yield producer
-    finally:
-        await producer.stop()
-
-def get_postgres_repository() -> PostgresRepository:
+def get_repository():
     return PostgresRepository()
 
-def get_redis_cache() -> RedisCache:
+def get_cache():
     return RedisCache()
 
-def get_application_service(
-    repo: PostgresRepository = get_postgres_repository(),
-) -> ApplicationService:
-    return ApplicationService(repo)
+kafka_producer = get_kafka_producer

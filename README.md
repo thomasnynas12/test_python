@@ -114,6 +114,8 @@ python app/interfaces/consumers/kafka_consumer.py
 ## 🧪 Running Tests
 
 ```bash
+pip install pytest httpx pytest-asyncio pytest-mock
+
 pytest tests/
 ```
 

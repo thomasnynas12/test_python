@@ -1,8 +1,9 @@
+from typing import AsyncGenerator
 from aiokafka import AIOKafkaProducer
-from fastapi import Depends
+from app.domain.config import KAFKA_BOOTSTRAP_SERVERS
 
-async def get_kafka_producer() -> AIOKafkaProducer:
-    producer = AIOKafkaProducer(bootstrap_servers="localhost:9092")
+async def get_kafka_producer() -> AsyncGenerator[AIOKafkaProducer, None]:
+    producer = AIOKafkaProducer(bootstrap_servers=KAFKA_BOOTSTRAP_SERVERS)
     await producer.start()
     try:
         yield producer
