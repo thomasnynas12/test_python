@@ -1,8 +1,9 @@
+from app.config import settings
 import redis.asyncio as redis
 
 class RedisCache:
     def __init__(self):
-        self.client = redis.Redis()
+        self.client = redis.Redis(settings.REDIS_URL)
 
     async def get(self, key):
         val = await self.client.get(key)
